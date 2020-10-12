@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<#include "/common/header.html">
+</head>
+<fieldset class="layui-elem-field site-demo-button">
+	<legend>查询模块</legend>
+	<div class="layui-form">
+		<div class="layui-form-item">
+			<label class="layui-form-label">商品名称</label>
+			<div class="layui-input-block">
+				<input type="text" name="name" id="name" lay-verify="" placeholder="请输入商品名称"
+					   autocomplete="off" class="layui-input">
+			</div>
+		</div>
+<!--		<div class="layui-form-item">-->
+<!--			<label class="layui-form-label">检测地点</label>-->
+<!--			<div class="layui-input-block">-->
+<!--				<input type="text" name="startTime" id="startTime" lay-verify="" placeholder="请选择起始时间"-->
+<!--					   autocomplete="off" class="layui-input">-->
+<!--			</div>-->
+<!--		</div>-->
+		<button class="layui-btn" lay-submit lay-filter="search"><i class="layui-icon">&#xe615;</i>高级查询</button>
+	</div>
+</fieldset>
+
+<fieldset class="layui-elem-field site-demo-button">
+	<legend>配件基本信息</legend>
+	<div>
+		<table id="parts_table" lay-filter="parts_table"></table>
+	</div>
+</fieldset>
+<!--<%&#45;&#45;弹出表单&#45;&#45;%>-->
+<!--<div class="layui-row" id="parts_formpopbox">-->
+<!--	<div class="layui-col-md11">-->
+<!--		<form id="parts_form" class="layui-form" action="" style="margin-top: 20px;align:center;">-->
+<!--&lt;!&ndash;			<%&#45;&#45;隐藏字段id,区分添加和修改&#45;&#45;%>&ndash;&gt;-->
+<!--			<input type="hidden" name="id"/>-->
+<!--			<div class="layui-form-item">-->
+<!--				<label class="layui-form-label">商品名称</label>-->
+<!--				<div class="layui-input-block">-->
+<!--					<input type="text" name="productname" id="productname" lay-verify="required" placeholder="请输入商品名称"-->
+<!--						   autocomplete="off" class="layui-input">-->
+<!--				</div>-->
+<!--			</div>-->
+<!--			<div class="layui-form-item">-->
+<!--				<label class="layui-form-label">检测地点</label>-->
+<!--				<div class="layui-input-block">-->
+<!--					<input type="text" name="detectionLocation" id="detectionLocation" lay-verify="required" placeholder="请输入检测地点"-->
+<!--						   autocomplete="off" class="layui-input">-->
+<!--				</div>-->
+<!--			</div>-->
+<!--			<div class="layui-form-item">-->
+<!--				<label class="layui-form-label">检测日期</label>-->
+<!--				<div class="layui-input-block">-->
+<!--					<input type="text" name="detectionDate" id="detectionDate" lay-verify="required" placeholder="请输入检测日期"-->
+<!--						   autocomplete="off" class="layui-input">-->
+<!--				</div>-->
+<!--			</div>-->
+<!--			<div class="layui-form-item">-->
+<!--				<label class="layui-form-label">检测结果</label>-->
+<!--				<div class="layui-input-block">-->
+<!--					<input type="text" name="detectionResult" id="detectionResult" lay-verify="required" placeholder="请输入检测结果"-->
+<!--						   autocomplete="off" class="layui-input">-->
+<!--				</div>-->
+<!--			</div>-->
+<!--			<div class="layui-form-item">-->
+<!--				<div class="layui-inline">-->
+<!--					<label class="layui-form-label">一级目录</label>-->
+<!--					<div class="layui-input-inline">-->
+<!--						<input type="text" class="layui-input" id="firstClass" name="firstClass" placeholder="请输入一级目录">-->
+<!--					</div>-->
+<!--				</div>-->
+<!--			</div>-->
+<!--			<div class="layui-form-item">-->
+<!--				<label class="layui-form-label">二级目录</label>-->
+<!--				<div class="layui-input-block">-->
+<!--					<input type="text" name="secondClass" id="secondClass" lay-verify="required" placeholder="请输入二级目录"-->
+<!--						   autocomplete="off" class="layui-input">-->
+<!--				</div>-->
+<!--			</div>-->
+<!--			<div class="layui-form-item">-->
+<!--				<label class="layui-form-label">三级目录</label>-->
+<!--				<div class="layui-input-block">-->
+<!--					<input type="text" name="thirdClass" id="thirdClass" lay-verify="required" placeholder="请输入三级目录"-->
+<!--						   autocomplete="off" class="layui-input">-->
+<!--				</div>-->
+<!--			</div>-->
+<!--			<div class="layui-form-item">-->
+<!--				<label class="layui-form-label">四级目录</label>-->
+<!--				<div class="layui-input-block">-->
+<!--					<input type="text" name="fourthClass" id="fourthClass" lay-verify="required" placeholder="请输入四级目录"-->
+<!--						   autocomplete="off" class="layui-input">-->
+<!--				</div>-->
+<!--			</div>-->
+<!--			<div class="layui-form-item">-->
+<!--				<label class="layui-form-label">受检企业名称</label>-->
+<!--				<div class="layui-input-block">-->
+<!--					<input type="text" name="company" id="company" lay-verify="required" placeholder="请输入受检企业名称"-->
+<!--						   autocomplete="off" class="layui-input">-->
+<!--				</div>-->
+<!--			</div>-->
+<!--			<div class="layui-form-item">-->
+<!--				<label class="layui-form-label">标称生产企业名称</label>-->
+<!--				<div class="layui-input-block">-->
+<!--					<input type="text" name="manufacturer" id="manufacturer" lay-verify="required" placeholder="请输入标称生产企业名称"-->
+<!--						   autocomplete="off" class="layui-input">-->
+<!--				</div>-->
+<!--			</div>-->
+<!--			<div class="layui-form-item">-->
+<!--				<label class="layui-form-label">商标</label>-->
+<!--				<div class="layui-input-block">-->
+<!--					<input type="text" name="brand" id="brand" lay-verify="required" placeholder="请输入商标"-->
+<!--						   autocomplete="off" class="layui-input">-->
+<!--				</div>-->
+<!--			</div>-->
+<!--			<div class="layui-form-item">-->
+<!--				<label class="layui-form-label">规格型号</label>-->
+<!--				<div class="layui-input-block">-->
+<!--					<input type="text" name="spec" id="spec" lay-verify="required" placeholder="请输入规格型号"-->
+<!--						   autocomplete="off" class="layui-input">-->
+<!--				</div>-->
+<!--			</div>-->
+<!--			<div class="layui-form-item">-->
+<!--				<label class="layui-form-label">生产日期/批号</label>-->
+<!--				<div class="layui-input-block">-->
+<!--					<input type="text" name="productionDate" id="productionDate" lay-verify="required" placeholder="请输入生产日期/批号"-->
+<!--						   autocomplete="off" class="layui-input">-->
+<!--				</div>-->
+<!--			</div>-->
+<!--			<div class="layui-form-item">-->
+<!--				<label class="layui-form-label">承检机构</label>-->
+<!--				<div class="layui-input-block">-->
+<!--					<input type="text" name="inspectionAgency" id="inspectionAgency" lay-verify="required" placeholder="请输入承检机构"-->
+<!--						   autocomplete="off" class="layui-input">-->
+<!--				</div>-->
+<!--			</div>-->
+<!--			<div class="layui-form-item">-->
+<!--				<label class="layui-form-label">操作</label>-->
+<!--				<div class="layui-input-block">-->
+<!--					<input type="text" name="operation" id="operation" lay-verify="required" placeholder="请输入操作"-->
+<!--						   autocomplete="off" class="layui-input">-->
+<!--				</div>-->
+<!--			</div>-->
+
+<!--			<div class="layui-form-item">-->
+<!--				<div class="layui-input-block">-->
+<!--					<button class="layui-btn layui-btn-radius layui-btn-normal" lay-submit=""-->
+<!--							lay-filter="parts_submit" onclick="parts_submit()">确认-->
+<!--					</button>-->
+<!--&lt;!&ndash;					<%&#45;&#45;<input type="button" class="layui-btn layui-btn-radius layui-btn-normal" value="确认" onclick="parts_submit()" />&#45;&#45;%>&ndash;&gt;-->
+<!--					<button type="reset" class="layui-btn layui-btn-radius layui-btn-primary">重置</button>-->
+<!--				</div>-->
+<!--			</div>-->
+<!--		</form>-->
+<!--	</div>-->
+<!--</div>-->
+<!--<%&#45;&#45; 这里放头工具栏按钮 id和table头的toolbar属性绑定&#45;&#45;%>-->
+<script type="text/html" id="parts_toolbar">
+	<div class="layui-btn-container">
+		<button class="layui-btn layui-btn-danger layui-btn-sm" lay-event="delAll"><i class="layui-icon"></i>批量删除
+		</button>
+		<button class="layui-btn layui-btn-sm layui-btn-warm" lay-event="add" onclick=""><i class="layui-icon"></i>添加
+		</button>
+	</div>
+</script>
+
+<!--<%&#45;&#45; 这里放CRUD行工具栏按钮 id和table行的toolbar属性绑定&#45;&#45;%>-->
+<script type="text/html" id="form_bar">
+	<a class="layui-btn layui-btn-primary layui-btn-xs"> lay-event="detail" title="查看"><i class="layui-icon">&#xe63c;</i></a>
+	<a class="layui-btn layui-btn-xs"> lay-event="edit" title="编辑"><i class="layui-icon">&#xe642;</i></a>
+	<a class="layui-btn layui-btn-danger layui-btn-xs"> lay-event="del" title="删除"><i
+			class="layui-icon">&#xe640;</i></a>
+</script>
+
+<script>
+	//注册组件
+	layui.use(['table', 'layer', 'form', 'laypage', 'laydate', 'upload'], function () {
+		var laydate = layui.laydate
+			, table = layui.table
+			, form = layui.form
+			, upload = layui.upload;
+
+		/**
+		 * 配件表
+		 */
+		table.render({
+			elem: '#parts_table'
+			, fit: true
+			, url: '/product/queryProduct' //数据接口
+			, toolbar: '#parts_toolbar' //自定义工具栏
+			// , toolbar: true // true为layui的默认工具栏,默认工具栏中只包含筛选列，导出和打印功能
+			, page: true //开启分页
+			// , height: $(document).height() - $('#parts_form').offset().top - 15 //固定分页栏
+
+			/**
+			 * layui返回table表数据是有相应格式的
+			 * @param res
+			 * @returns {{code: number, msg: string, count: number, data: *}}
+			 */
+			/*
+			,parseData:function (res) {
+				console.log(res);
+				return{
+					"code":0,
+					"msg":"",
+					"count":1000,
+					data:res
+				}
+			}*/
+			, cols: [[ //表头
+				{type: 'checkbox', fixed: 'left'}
+
+				, {field: 'id', width: 20, title: 'ID', sort: true}
+				, {field: 'productName', width: 65, title: '商品名称'}
+				, {field: 'detectionLocation', width: 65, title: '检测地点'}
+				, {field: 'detectionDate', width: 65, title: '检测日期'}
+				, {field: 'detectionResult', width: 65, title: '检测结果'}
+				, {field: 'firstClass', width: 65, title: '一级目录'}
+				, {field: 'secondClass', width: 65, title: '二级目录'}
+				, {field: 'thirdClass', width: 65 title: '三级目录'}
+				, {field: 'fourthClass', width: 65 title: '四级目录'}
+				, {field: 'company', width: 90 title: '受检企业名称'}
+				, {field: 'manufacturer', width: 120 title: '标称生产企业名称'}
+				, {field: 'brand', width: 40 title: '商标'}
+				, {field: 'spec', width: 65 title: '规格型号'}
+				, {field: 'productionDate', width: 100 title: '生产日期/批号'}
+				, {field: 'inspectionAgency', width: 65 title: '承检机构'}
+				, {fixed: 'right', title:'操作', toolbar: '#barDemo' width: 150}
+			]],
+			id: "partslist" //重载表的时候被引用， table.reload('partslist');
+		});
+		//监听头工具栏事件
+		table.on('toolbar(parts_table)', function (obj) {
+			var checkStatus = table.checkStatus(obj.config.id)
+				, data = checkStatus.data; //获取选中的数据
+			//json字符串转换成Json数据 eval("("+jsonStr+")")  /JSON.parse(jsonStr)
+			data = eval("(" + JSON.stringify(data) + ")");
+			switch (obj.event) {
+				case 'delAll':
+					if (data.length === 0) {
+						layer.msg('请至少选择1行', {icon: 2, time: 1500});
+					} else {
+						layer.alert('您确认要删除' + data.length + '条数据吗？', {
+							skin: 'layui-layer-molv' //样式类名layui-layer-lan或layui-layer-molv  自定义样式
+							, closeBtn: 1    // 是否显示关闭按钮
+							, anim: 1 //动画类型
+							, btn: ['确定', '取消'] //按钮
+							, icon: 2    // icon
+							, yes: function () {
+								// layer.msg('确定', { icon: 1, time: 1500 });
+								for (var i = 0; i < data.length; i++) {
+									console.debug("id:======" + data[i].id)
+									//发送请求到后台
+									$.post("/product/delete", {id: data[i].id}, function (result) {
+										if (result.success == true) {//删除成功，刷新当前页表格
+											// obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+											layer.msg(result.msg, {icon: 1, time: 1500});
+											// layer.close(index);
+											$(".layui-laypage-btn").click();//点击分页刷新当前页
+										} else if (result.success == false) {  //删除失败
+											layer.alert(result.msg, {icon: 2}, function () {
+												$(".layui-laypage-btn").click();
+												window.location.reload();
+											});
+										}
+									});
+								}
+								/*   //捉到所有被选中的，发异步进行删除
+								   layer.msg('删除成功', {icon: 1});
+								   $(".layui-form-checked").not('.header').parents('tr').remove();*/
+							}
+							, btn2: function () {
+								layer.msg('好的,暂时不给您删除。', {icon: 1, time: 1500});
+							}
+						});
+					}
+					break;
+				/**
+				 * 弹出添加表格
+				 */
+				case 'add':
+
+					parts_form('添加菜单', 'url这个值不管', '', '');
+					$("#parts_form").setForm({id: data.id, productname: data.productname, detectionLocation: data.detectionLocation});
+					break;
+			}
+		});
+		//监听行工具事件
+		table.on('tool(parts_table)', function (obj) { //注：tool 是工具条事件名，parts_table 是 table 原始容器的属性 lay-filter="对应的值"
+			var data = obj.data //获得当前行数据
+				, layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+			var tr = obj.tr; //获得当前行 tr 的DOM对象
+			switch (layEvent) {
+				case 'detail':
+					//json字符串转换成Json数据 eval("("+jsonStr+")")  /JSON.parse(jsonStr)
+					var jsonstr = JSON.stringify(data);//json数据转字符串  JSON.stringify(obj)
+					layer.alert(jsonstr);
+					break;
+				case 'del':
+					layer.confirm('您确定删除id：' + data.id + '的数据吗？', function (index) {
+						//向服务端发送删除指令，在这里可以使用Ajax异步
+						$.post("product/delete", {id: data.id}, function (ret) {
+							if (ret.success == true) {//删除成功，刷新当前页表格
+								layer.msg(ret.msg, {icon: 1, time: 1500}, function () {
+									obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+									layer.close(index);
+									// $(".layui-laypage-btn").click();//点击分页刷新当前页
+								});
+							} else if (ret.success == false) {  //删除失败
+								layer.alert(ret.msg, {icon: 2}, function () {
+									layer.close(index);
+									// $(".layui-laypage-btn").click();
+									window.location.reload();
+								});
+							}
+						});
+					});
+					break;
+				/**
+				 * 弹出编辑表格
+				 */
+				case 'edit':
+					console.debug(data);
+					parts_form('编辑菜单', 'url这个值不管', 500, 400);
+					//回显数据
+					$("#parts_form").setForm({
+						id: data.id,
+						productname: data.productname,
+						detectionLocation: data.detectionLocation,
+						detectionDate: data.detectionDate,
+						detectionResult: data.detectionResult,
+						firstClass: data.firstClass,
+						secondClass: data.secondClass,
+						thirdClass: data.thirdClass,
+						fourthClass: data.fourthClass,
+						company: data.company,
+						manufacturer: data.manufacturer,
+						brand: data.brand,
+						spec: data.spec,
+						productionDate: data.productionDate,
+						inspectionAgency: data.inspectionAgency
+					});
+					break;
+			}
+		});
+
+		//监听单元格编辑   parts_table 对应 <table> 中的 lay-filter="parts_table"       做可编辑表格使用
+		table.on('edit(parts_table)', function (obj) {
+			var value = obj.value //得到修改后的值
+				, data = obj.data //得到所在行所有键值
+				, field = obj.field; //得到字段
+			layer.msg('[ID: ' + data.id + '] ' + field + ' 字段更改为：' + value);
+		});
+
+		//监听提交 lay-filter="parts_submit"
+		form.on('submit(parts_submit)', function (data) {
+
+			console.log(data.field) //当前from表单所提交的所有字段， 名值对形式：{name: value}
+			// layer.msg(JSON.stringify(data.field));//表格数据序列化
+			var formData = data.field;
+			var id = formData.id,
+				productname = formData.productname,
+				detectionLocation = formData.detectionLocation,
+				detectionDate = formData.detectionDate,
+				detectionResult = formData.detectionResult,
+				firstClass = formData.firstClass,
+				secondClass = formData.secondClass,
+				thirdClass = formData.thirdClass,
+				fourthClass = formData.fourthClass,
+				company = formData.company,
+				manufacturer = formData.formData,
+				brand = formData.brand,
+				spec = formData.spec,
+				productionDate = formData.productionDate,
+				inspectionAgency = formData.inspectionAgency
+			$.ajax({
+				type: "post",  //数据提交方式（post/get）
+				url: "/parts/save",  //提交到的url
+				data: {
+					"id": id,
+					"productname": productname,
+					"detectionLocation": detectionLocation,
+					"detectionDate": detectionDate,
+					"detectionResult": detectionResult,
+					"firstClass": firstClass,
+					"secondClass": secondClass,
+					"thirdClass": thirdClass,
+					"fourthClass": fourthClass,
+					"company": company,
+					"manufacturer": manufacturer,
+					"brand": brand,
+					"spec": spec,
+					"productionDate": productionDate,
+					"inspectionAgency": inspectionAgency
+				},//提交的数据
+				dataType: "json",//返回的数据类型格式
+				success: function (msg) {
+					if (msg.success) {  //成功
+						//关闭编辑窗口
+						layer.closeAll();
+						//弹出提示窗口
+						layer.alert(msg.msg, {icon: 1, time: 2500, title: '操作成功'});
+
+						//刷新parts_table
+						table.reload('partslist');
+					} else {  //失败
+						layer.open({
+							icon: 2,
+							// time:1500,
+							type: 0,
+							title: '操作失败',
+							content: msg.msg,
+							area: ['500px', '300px']
+						});
+					}
+				}
+			});
+
+			/*
+			$.post('/parts/save', data.field, function (r) {
+				console.log(data.field);
+				if (r.success) {
+					layer.msg(r.msg, {icon: 1, time: 1500, title: '操作成功'});
+					//关闭窗口
+					layer.closeAll();
+					//刷新parts_table
+					table.reload('partslist');
+				} else {
+					layer.open({
+						icon: 2,
+						// time:1500,
+						type: 0,
+						title: '操作失败',
+						content: r.msg,
+						area: ['500px', '300px']
+					});
+				}
+
+			});*/
+
+
+			return false;//false：阻止表单跳转  true：表单跳转
+		});
+
+
+		//高级查询--监听提交 lay-filter="search"
+		form.on('submit(search)', function (data) {
+			// layer.msg(JSON.stringify(data.field));//表格数据序列化
+			var formData = data.field;
+			console.debug(formData);
+			var productName = formData.productName;
+			if (productName == "") {
+				layer.alert('请输入筛选条件！', {icon: 2, time: 1500});
+				return false;
+			}
+
+			//数据表格重载
+			table.reload('partslist', {
+				page: {
+					curr: 1 //重新从第 1 页开始
+				}
+				, where: {//这里传参  向后台
+					productName: productName
+				}
+				, url: "/product/queryProduct" //后台做模糊搜索接口路径
+				, method: 'post'
+			});
+			/**
+			 * 发送Ajax请求
+			 */
+			/*$.ajax({
+				type: "post",  //数据提交方式（post/get）
+				url: "/product/queryProduct",  //提交到的url
+				data: {
+					"productName": productName
+				},//提交的数据
+				dataType: "json",//返回的数据类型格式
+			});*/
+
+			return false;//false：阻止表单跳转  true：表单跳转
+		});
+
+	});
+
+
+	var index;//layer.open 打开窗口后的索引，通过layer.close(index)的方法可关闭
+	//表单弹出层
+	function parts_form(title, url, w, h) {
+		if (title == null || title == '') {
+			title = false;
+		}
+		;
+		if (url == null || url == '') {
+		}
+		;// url="404.html";
+		if (w == null || w == '') {
+			w = ($(window).width() * 0.9);
+		}
+		;
+		if (h == null || h == '') {
+			h = ($(window).height() - 50);
+		}
+		;
+		index = layer.open({  //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
+			type: 1,
+			title: title,
+			area: ['25%', '55%'],//类型：String/Array，默认：'auto'  只有在宽高都定义的时候才不会自适应
+			// area: [w+'px', h +'px'],
+			fix: false, //不固定
+			maxmin: true,//开启最大化最小化按钮
+			shadeClose: true,//点击阴影处可关闭
+			shade: 0.4,//背景灰度
+			skin: 'layui-layer-rim', //加上边框
+			content: $("#parts_formpopbox")
+		});
+	}
+</script>
+</body>
+</html>

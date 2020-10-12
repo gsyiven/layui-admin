@@ -2,7 +2,8 @@
 SQLyog Ultimate v11.24 (32 bit)
 MySQL - 5.5.54 : Database - alex-admin
 *********************************************************************
-*/
+*/
+
 
 /*!40101 SET NAMES utf8 */;
 
@@ -53,7 +54,36 @@ CREATE TABLE `sys_menu` (
 
 /*Data for the table `sys_menu` */
 
-insert  into `sys_menu`(`id`,`menuName`,`pid`,`url`,`icon`,`sort`,`deep`,`code`,`resource`) values ('0c9b5fc8b44b41d1871a8fc8300247ec','删除菜单','4','','',4,3,'010303','deleteMenu'),('1','系统管理','0','','icon-settings',0,1,'01',''),('1db9105008404a3485b6fac30dba3c0e','查看角色列表','3','','',0,3,'010200','listRole'),('2','用户管理','1','/user/list','icon-yonghu',1,2,'0101','user'),('3','角色管理','1','/role/list','icon-jiaose',2,2,'0102','role'),('3987d383a7a74b45902e14e027d9b56e','更新角色状态','3','','',6,3,'010206','updateStateRole'),('3b18f3d776c74266b63c2542825aa3c3','SPU管理','be659f4c66fb4db989f654eb408d86e1','','icon-SPUguanli',0,2,'0201','spuList'),('3f26102ef0e04c3c9328cb97067cc5fa','创建菜单','4','','',1,3,'010301','addMenu'),('4','菜单管理','1','/menu/list','icon-menu',3,2,'0103','menu'),('4253190001c1480fb0d631d64d150535','编辑用户','2','','',2,3,'010102','editUser'),('42dd5ae31e3a43b3a197440e8ec19a94','监控列表','f5a20c82110b4a3ea9e30ca01a038680','','',1,3,'010701','monitorList'),('488ef1eff57b4827acade7c0744278ce','查看菜单列表','4','','',0,3,'010300','listMenu'),('60dda993d87647f5989c15f14f866df9','新增角色','3','','',1,3,'010201','addRole'),('649b484b58414d91aefa5a26143e6557','删除用户','2','','',3,3,'010103','deleteUser'),('686630c7cb624cc786dcdc9958971a6b','编辑角色','3','','',2,3,'010202','editRole'),('809db56d93e848e8b43396e125803884','日志管理','1','/log/list','icon-rizhi',4,2,'0104',''),('9c51e94cef99435780fb72bdb923a2ab','更新用户状态','2','','',4,3,'010104','updateStateUser'),('a5ebf29168234406939856bc6890c86b','角色授权','3','','',4,3,'010204','authRole'),('a73802e513cc4465883530ec8074abbb','新增用户','2','','',1,3,'010101','addUser'),('b4e7232189b14cf3ba160cf7b0d3bf37','删除角色','3','','',3,3,'010203','deleteRole'),('be659f4c66fb4db989f654eb408d86e1','商品管理','0','/goods/page','icon-shangpin',0,1,'02',''),('c0c304be5c294114b5bc0d0c3acef992','日志列表','809db56d93e848e8b43396e125803884','','',1,3,'010401','listLog'),('d2bc30feb5474a1bb7e02d48d39a3f8a','查看用户列表','2','','',0,3,'010100','listUser'),('dc5f478d98ed4297a8ae638fe90df050','编辑菜单','4','','',3,3,'010302','editMenu'),('f5a20c82110b4a3ea9e30ca01a038680','系统监控','1','/druid/wall.html','icon-jiankong',7,2,'0107',''),('f899f3d3baec4571b1c786717f9906fd','批量删除角色','3','','',5,3,'010205','deleteBatchRole');
+insert  into `sys_menu`(`id`,`menuName`,`pid`,`url`,`icon`,`sort`,`deep`,`code`,`resource`) values ('be659f4c66fb4db989f654eb408d86e1','数据管理','0','/goods/page','icon-shangpin',0,1,'02',''),('3b18f3d776c74266b63c2542825aa3c3','数据表格','be659f4c66fb4db989f654eb408d86e1','/product/list','icon-menu',0,2,'0201','table'),('0c9b5fc8b44b41d1871a8fc8300247ec','删除数据','3b18f3d776c74266b63c2542825aa3c3','','',3,3,'020103','deleteProduct'),('3f26102ef0e04c3c9328cb97067cc5fa','创建数据','3b18f3d776c74266b63c2542825aa3c3','','',1,3,'020101','addProduct'),('488ef1eff57b4827acade7c0744278ce','查看数据列表','3b18f3d776c74266b63c2542825aa3c3','','',0,3,'020100','listProduct'),('dc5f478d98ed4297a8ae638fe90df050','编辑数据','3b18f3d776c74266b63c2542825aa3c3','','',2,3,'020102','editProduct'),('1','系统管理','0','','icon-settings',0,1,'01',''),('2','用户管理','1','/user/list','icon-yonghu',1,2,'0101','user'),('649b484b58414d91aefa5a26143e6557','删除用户','2','','',3,3,'010103','deleteUser'),('9c51e94cef99435780fb72bdb923a2ab','更新用户状态','2','','',4,3,'010104','updateStateUser'),('a73802e513cc4465883530ec8074abbb','新增用户','2','','',1,3,'010101','addUser'),('c0c304be5c294114b5bc0d0c3acef992','日志列表','809db56d93e848e8b43396e125803884','','',1,3,'010401','listLog'),('d2bc30feb5474a1bb7e02d48d39a3f8a','查看用户列表','2','','',0,3,'010100','listUser'),('f5a20c82110b4a3ea9e30ca01a038680','系统监控','1','/druid/wall.html','icon-jiankong',7,2,'0107','');
+
+/*Table structure for table `sys_product` */
+
+DROP TABLE IF EXISTS `sys_product`;
+
+CREATE TABLE `sys_product` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '商品ID',
+  `productName` varchar(255) NOT NULL COMMENT '商品名称',
+  `detectionLocation` varchar(255) NOT NULL COMMENT '检测地点',
+  `detectionDate` varchar(100) COMMENT '检测日期',
+  `detectionResult` varchar(300) NOT NULL COMMENT '检测结果',
+  `firstClass` varchar(50) COMMENT '一级目录',
+  `secondClass` varchar(50) COMMENT '二级目录',
+  `thirdClass` varchar(50) COMMENT '三级目录',
+  `fourthClass` varchar(50) NOT NULL COMMENT '四级目录',
+  `company` varchar(100) COMMENT '受检企业名称',
+  `manufacturer` varchar(100) COMMENT '标称生产企业名称',
+  `brand` varchar(50) COMMENT '商标',
+  `spec` varchar(100) COMMENT '规格型号',
+  `productionDate` varchar(100) COMMENT '生产日期/批号',
+  `inspectionAgency` varchar(255) COMMENT '承检机构',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='商品表';
+
+/*Data for the table `sys_menu` */
+
+insert  into `sys_product`(`productName`,`detectionLocation`,`detectionDate`,`detectionResult`,`firstClass`,`secondClass`,`thirdClass`,`fourthClass`, `company`, `manufacturer`, `brand`, `spec`, `productionDate`, `inspectionAgency`)
+values ('deli水笔','上海市XXXXX','2020-09-11','合格','文教体育用品','文教及类似用品','笔配件和零件', '自来水笔','deli', 'deli', 'deli', 'XXX', 'XXX', 'XXX');
+
 
 /*Table structure for table `sys_role` */
 
@@ -72,7 +102,7 @@ CREATE TABLE `sys_role` (
 
 insert  into `sys_role`(`id`,`roleName`,`roleDesc`,`roleState`,`createTime`) values ('2a9b728a431246b08f853c2529e6ba84','测试角色','测试',1,'2017-02-28 15:15:41'),('3bd9f9e5fa8a4e0587a78cf697e4a9ce','只读角色','只读角色',1,'2017-07-06 14:35:37'),('737933bffef640329a4f864c4e2746ba','超级管理员','超级管理员',1,'2016-12-14 10:22:34');
 
-/*Table structure for table `sys_role_menu` */
+/*Table structure for table `sys_role_m66enu` */
 
 DROP TABLE IF EXISTS `sys_role_menu`;
 

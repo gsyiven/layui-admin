@@ -1,0 +1,16 @@
+org\alex\admin\core\anno\PassLogin.class
+org\alex\admin\core\advice\ForbidMethodAdvice.class
+org\alex\admin\core\ex\ForbidAccessException.class
+org\alex\admin\core\jackson\CustomObjectMapper.class
+org\alex\admin\core\bean\Rest.class
+org\alex\admin\core\anno\Log.class
+org\alex\admin\core\advice\ExceptionAdvice.class
+org\alex\admin\core\anno\ForbidMethod.class
+org\alex\admin\core\ex\NotFindDataException.class
+org\alex\admin\core\jsonp\JsonpSupportAdvice.class
+org\alex\admin\core\log\LogApi.class
+org\alex\admin\core\anno\Resource.class
+org\alex\admin\core\controller\CrudController.class
+org\alex\admin\core\util\IpUtil.class
+org\alex\admin\core\log\LogAdvice.class
+org\alex\admin\core\log\LogBean.class

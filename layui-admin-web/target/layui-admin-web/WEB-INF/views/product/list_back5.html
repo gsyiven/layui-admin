@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<#include "/common/header.html">
+</head>
+<body>
+
+<div class="demoTable">
+	商品名称：
+	<div class="layui-inline">
+		<input class="layui-input" name="productName" id="productName" autocomplete="off">
+	</div>
+	<button class="layui-btn" data-type="reload" id="search">搜索</button>
+</div>
+
+<table class="layui-hide" id="product_table" lay-filter="product"></table>
+
+
+<script type="text/javascript" src="/layui/layui.js"></script>
+<script type="text/javascript">
+	layui.use('table', function(){
+	  var table = layui.table;
+
+	  //方法级渲染
+	  var tableObj = table.render({
+		elem: '#product_table'
+		,url: '/product/queryProduct'
+		, method: 'post' //默认：get请求
+		,cols: [[
+		  {checkbox: true, fixed: true}
+			, {field: 'id', width: 20, title: 'ID', sort: true}
+			, {field: 'productName', width: 65, title: '商品名称'}
+			, {field: 'detectionLocation', width: 65, title: '检测地点'}
+			, {field: 'detectionDate', width: 65, title: '检测日期'}
+			, {field: 'detectionResult', width: 65, title: '检测结果'}
+			, {field: 'firstClass', width: 65, title: '一级目录'}
+			, {field: 'secondClass', width: 65, title: '二级目录'}
+			, {field: 'thirdClass', width: 65 title: '三级目录'}
+			, {field: 'fourthClass', width: 65 title: '四级目录'}
+			, {field: 'company', width: 90 title: '受检企业名称'}
+			, {field: 'manufacturer', width: 120 title: '标称生产企业名称'}
+			, {field: 'brand', width: 40 title: '商标'}
+			, {field: 'spec', width: 65 title: '规格型号'}
+			, {field: 'productionDate', width: 100 title: '生产日期/批号'}
+			, {field: 'inspectionAgency', width: 65 title: '承检机构'}
+			, {fixed: 'right', title:'操作', toolbar: '#barDemo' width: 150}
+		]]
+		,id: 'product_table'
+		,page: true
+
+	  $("#search").click(function() {
+		tableObj.reload({
+			page: {
+				curr: 1
+			}
+			, where: {
+				productName: productName.val()
+			}
+		});
+	  });
+	});
+</script>
+
+</body>
+</html>

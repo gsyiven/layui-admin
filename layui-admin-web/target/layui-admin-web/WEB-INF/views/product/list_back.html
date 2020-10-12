@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<#include "/common/header.html">
+</head>
+<body class="childrenBody">
+	<blockquote class="layui-elem-quote news_search">
+		<form class="layui-form form" action="/product/page" method="get">
+		<div class="layui-inline">
+			<a class="layui-btn modal-iframe"  data-params='{"content": "/product/add", "title": "添加产品","full":false,"area":"600px,480px"}'>新增</a>
+		</div>
+		<div class="layui-inline">
+			<a class="layui-btn layui-btn-danger batchDel ajax-all"  data-name="id" data-params='{"url": "/product/delete","data":"","confirm":"true","complete":"reloadTab"}'>批量删除</a>
+		</div>
+		<div class="layui-inline">
+		    <div class="layui-input-inline">
+		    	<input type="text" value="" name="keyword" placeholder="产品名称" class="layui-input search_input">
+		    </div>
+<!--		    <button lay-submit class="layui-btn" lay-filter="search">查找</button>-->
+			<button lay-submit id="reloadBtn" class="layui-btn" lay-filter="search">查找</button>
+		</div>
+		</form>
+	</blockquote>
+	<div class="layui-form links_list">
+	  	<table class="layui-table">
+<!--		    <colgroup>-->
+<!--				<col width="50">-->
+<!--				<col>-->
+<!--				<col>-->
+<!--				<col>-->
+<!--				<col>-->
+<!--				<col>-->
+<!--				<col>-->
+<!--				<col>-->
+<!--				<col width="15%">-->
+<!--		    </colgroup>-->
+		    <thead>
+				<tr>
+					<th><input type="checkbox" id="checkall" data-name="id" lay-filter="check" lay-skin="primary"></th>
+					<th>id</th>
+					<th>商品名称</th>
+					<th>检测地点</th>
+					<th>检测日期</th>
+					<th>检测结果</th>
+					<th>一级目录</th>
+					<th>二级目录</th>
+					<th>三级目录</th>
+					<th>四级目录</th>
+					<th>受检企业名称</th>
+					<th>标称生产企业名称</th>
+					<th>商标</th>
+					<th>规格型号</th>
+					<th>生产日期/批号</th>
+					<th>承检机构</th>
+					<th>操作</th>
+				</tr>
+		    </thead>
+		    <tbody id="list"></tbody>
+		</table>
+	</div>
+	<div id="page"></div>
+	
+    <script id="list-tpl" type="text/html" data-params='{"url":"/product/page","pageid":"#page"}'>
+	{{#  layui.each(d, function(index, it){ }}
+	<tr>
+		<td><input type="checkbox" name="id" value="{{ it.id}}" lay-skin="primary" ></td>
+<!--		<td align="left">{{it.id}}</td>-->
+<!--		<td align="left">{{it.productName}}</td>-->
+<!--		<td align="left">{{it.detectionLocation}}</td>-->
+<!--		<td align="left">{{it.detectionDate}}</td>-->
+<!--		<td align="left">{{it.detectionResult}}</td>-->
+<!--		<td align="left">{{it.firstClass}}</td>-->
+<!--		<td align="left">{{it.secondClass}}</td>-->
+<!--		<td align="left">{{it.thirdClass}}</td>-->
+<!--		<td align="left">{{it.fourthClass}}</td>-->
+<!--		<td align="left">{{it.company}}</td>-->
+<!--		<td align="left">{{it.manufacturer}}</td>-->
+<!--		<td align="left">{{it.brand}}</td>-->
+<!--		<td align="left">{{it.spec}}</td>-->
+<!--		<td align="left">{{it.productionDate}}</td>-->
+<!--		<td align="left">{{it.inspectionAgency}}</td>-->
+		<td align="left" width="20">{{it.id}}</td>
+		<td align="left" width="65">{{it.productName}}</td>
+		<td align="left" width="65">{{it.detectionLocation}}</td>
+		<td align="left" width="65">{{it.detectionDate}}</td>
+		<td align="left" width="65">{{it.detectionResult}}</td>
+		<td align="left" width="65">{{it.firstClass}}</td>
+		<td align="left" width="65">{{it.secondClass}}</td>
+		<td align="left" width="65">{{it.thirdClass}}</td>
+		<td align="left" width="65">{{it.fourthClass}}</td>
+		<td align="left" width="90">{{it.company}}</td>
+		<td align="left" width="120">{{it.manufacturer}}</td>
+		<td align="left" width="40">{{it.brand}}</td>
+		<td align="left" width="65">{{it.spec}}</td>
+		<td align="left" width="100">{{it.productionDate}}</td>
+		<td align="left" width="65">{{it.inspectionAgency}}</td>
+		<td align="left">
+			<a class="layui-btn layui-btn-mini modal-iframe" data-params='{"content": "/product/edit?id={{it.id}}", "title": "编辑","full":false,"area":"600px,480px"}'><i class="iconfont icon-edit"></i> 编辑</a>
+			<a class="layui-btn layui-btn-mini modal-iframe" data-params='{"content": "/product/addItem?id={{it.id}}", "title": "添加商品","full":false,"area":"600px,480px"}'><i class="iconfont icon-edit"></i> 添加</a>
+			<a class="layui-btn layui-btn-danger layui-btn-mini ajax" data-params='{"url": "/product/delete","confirm":true,"data":"id={{it.id}}","complete":"reloadTab"}'><i class="layui-icon">&#xe640;</i> 删除</a>
+		</td>
+	</tr>
+	{{#  }); }}
+
+	{{#  if(d.length == 0){ }}
+	  <tr><td colspan='9' align='left' style='color:#999999;'>未查到任何数据</td></tr>
+	{{#  } }}
+	</script>
+	<#include "/common/version.html">
+	<script type="text/javascript">
+		layui.use('list');
+	</script>
+</body>
+</html>

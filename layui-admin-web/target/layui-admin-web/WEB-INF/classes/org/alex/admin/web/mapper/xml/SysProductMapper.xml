@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.alex.admin.web.mapper.SysProductMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="productMap" type="org.alex.admin.web.entity.SysProduct">
+        <id column="id" property="id" />
+        <result column="productName" property="productName" />
+        <result column="detectionLocation" property="detectionLocation" />
+        <result column="detectionDate" property="detectionDate" />
+        <result column="detectionResult" property="detectionResult" />
+        <result column="firstClass" property="firstClass" />
+        <result column="secondClass" property="secondClass" />
+        <result column="thirdClass" property="thirdClass" />
+        <result column="fourthClass" property="fourthClass" />
+        <result column="company" property="company" />
+        <result column="manufacturer" property="manufacturer" />
+        <result column="brand" property="brand" />
+        <result column="spec" property="spec" />
+        <result column="productionDate" property="productionDate" />
+        <result column="inspectionAgency" property="inspectionAgency" />
+    </resultMap>
+
+<!--    <select id="getById" resultType="org.alex.admin.web.entity.SysProduct">-->
+<!--        SELECT-->
+<!--            id,-->
+<!--            productName,-->
+<!--            detectionLocation,-->
+<!--            detectionDate,-->
+<!--            detectionResult,-->
+<!--            firstClass,-->
+<!--            secondClass,-->
+<!--            thirdClass,-->
+<!--            fourthClass,-->
+<!--            company,-->
+<!--            manufacturer,-->
+<!--            brand,-->
+<!--            spec,-->
+<!--            productionDate,-->
+<!--            inspectionAgency-->
+<!--        FROM-->
+<!--            product-->
+<!--        WHERE-->
+<!--            id = #{id}-->
+
+<!--    </select>-->
+
+<!--    <select id="queryAll" resultType="org.alex.admin.web.entity.SysProduct">-->
+<!--        SELECT-->
+<!--            id,-->
+<!--            productName,-->
+<!--            detectionLocation,-->
+<!--            detectionDate,-->
+<!--            detectionResult,-->
+<!--            firstClass,-->
+<!--            secondClass,-->
+<!--            thirdClass,-->
+<!--            fourthClass,-->
+<!--            company,-->
+<!--            manufacturer,-->
+<!--            brand,-->
+<!--            spec,-->
+<!--            productionDate,-->
+<!--            inspectionAgency-->
+<!--        FROM-->
+<!--            product-->
+<!--        ORDER BY-->
+<!--            id-->
+<!--    </select>-->
+
+<!--    <select id="queryProduct" resultType="java.util.HashMap"-->
+<!--            parameterType="java.lang.String">-->
+<!--        SELECT-->
+<!--            id,-->
+<!--            productName,-->
+<!--            detectionLocation,-->
+<!--            detectionDate,-->
+<!--            detectionResult,-->
+<!--            firstClass,-->
+<!--            secondClass,-->
+<!--            thirdClass,-->
+<!--            fourthClass,-->
+<!--            company,-->
+<!--            manufacturer,-->
+<!--            brand,-->
+<!--            spec,-->
+<!--            productionDate,-->
+<!--            inspectionAgency-->
+<!--        FROM-->
+<!--            `sys_product`-->
+<!--        WHERE-->
+<!--            productName like CONCAT(CONCAT('%', #{productName}),'%')-->
+<!--        ORDER BY-->
+<!--            id-->
+<!--    </select>-->
+
+    <select id="queryProduct" resultMap="productMap" parameterType="java.lang.String">
+        SELECT  t.* FROM sys_product t
+        <where>
+            1=1
+            <if test="productName!=null and productName!='' ">
+                and t.productName like concat('%',#{productName},'%')
+            </if>
+        </where>
+        ORDER BY id
+    </select>
+
+</mapper>

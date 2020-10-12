@@ -26,7 +26,7 @@ layui.define(["element","jquery","layer"],function(exports){
         $.ajax({
             type: "GET",
             url: "/menu/leftmenu",
-            // url: "/json/menu.json",
+//             url: "/json/menu.json",
             dataType: "JSON",
             data: {},
             timeout: 50000,

@@ -34,7 +34,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 public class MenuController extends CrudController<SysMenu, ISysMenuService>{  
 	
 	@Autowired private ISysMenuService sysMenuService;
-	
+
 	@Resource("listMenu")
 	@ResponseBody
 	@RequestMapping("/page")
@@ -47,8 +47,8 @@ public class MenuController extends CrudController<SysMenu, ISysMenuService>{
 			ew.like("menuName", keyword);
 		}
 		Page<SysMenu> pageData = sysMenuService.selectPage(new Page<SysMenu>(page, size),ew);
-		return Rest.okData(pageData);	
-		
+		return Rest.okData(pageData);
+
 	}
 	
 	/**
