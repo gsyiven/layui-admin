@@ -58,7 +58,7 @@ public class FileUploadController{
 			            String ext =  FilenameUtils.getExtension(myfile.getOriginalFilename());
 			            String reName = RandomStringUtils.randomAlphanumeric(32).toLowerCase() + "."+ ext;
 			            String cdate = DateFormatUtils.format(new Date(), "yyyy-MM-dd");
-			            String realPath = request.getSession().getServletContext().getRealPath("/upload")+ File.separator +cdate; 
+			            String realPath = request.getSession().getServletContext().getRealPath("/upload")+ File.separator +cdate;
 			            FileUtils.copyInputStreamToFile(myfile.getInputStream(), new File(realPath, reName)); 
 			            urls.add("/upload/"+cdate+"/"+reName);
 			        }  

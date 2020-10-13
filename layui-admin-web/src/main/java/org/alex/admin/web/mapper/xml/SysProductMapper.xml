@@ -105,4 +105,9 @@
         ORDER BY id
     </select>
 
+    <!-- 添加 -->
+    <insert id="add" parameterType="org.alex.admin.web.entity.SysProduct">
+        INSERT INTO sys_product(productName,detectionLocation,detectionDate,detectionResult,firstClass,secondClass,thirdClass,fourthClass,company,manufacturer,brand,spec,productionDate,inspectionAgency) values(#{productName},#{detectionLocation},#{detectionDate},#{detectionResult},#{firstClass},#{secondClass},#{thirdClass},#{fourthClass},#{company},#{manufacturer},#{brand},#{spec},#{productionDate},#{inspectionAgency})
+    </insert>
+
 </mapper>

@@ -20,6 +20,9 @@
 	<!--		    <button lay-submit class="layui-btn" lay-filter="search">查找</button>-->
 				<button lay-submit id="reloadBtn" class="layui-btn" lay-filter="search">查找</button>
 			</div>
+			<div class="layui-inline">
+				<input type="file" lay-type="file" id="import" name="file" class="layui-upload-file">
+			</div>
 		</form>
 	</blockquote>
 	<div class="layui-form links_list">
@@ -81,7 +84,7 @@
 		<td align="left" width="65">{{it.fourthClass}}</td>
 		<td align="left" width="90">{{it.company}}</td>
 		<td align="left" width="120">{{it.manufacturer}}</td>
-		<td align="left" width="40">{{it.brand}}</td>
+		<td align="left" width="65">{{it.brand}}</td>
 		<td align="left" width="65">{{it.spec}}</td>
 		<td align="left" width="100">{{it.productionDate}}</td>
 		<td align="left" width="65">{{it.inspectionAgency}}</td>
@@ -100,6 +103,25 @@
 	<#include "/common/version.html">
 	<script type="text/javascript">
 		layui.use('list');
+<!--		layui.use(['list', 'upload'], function() {-->
+<!--		  var upload = layui.upload;-->
+
+<!--		  //执行实例-->
+<!--		  var uploadInst = upload.render({-->
+<!--		    elem: '#test1' //绑定元素-->
+<!--		    ,url: '/product/importExcel' //上传接口-->
+<!--&lt;!&ndash;		    ,accept: 'file' //普通文件&ndash;&gt;-->
+<!--			,done: function(res){-->
+<!--				var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引-->
+<!--                parent.location.reload();//刷新父页面，注意一定要在关闭当前iframe层之前执行刷新-->
+<!--                parent.layer.close(index); //再执行关闭-->
+<!--			}-->
+<!--		    ,error: function(res){-->
+<!--		      //请求异常回调-->
+<!--		    	alert("服务器错误");-->
+<!--		    }-->
+<!--		  });-->
+<!--		});-->
 	</script>
 </body>
 </html>

@@ -22,6 +22,8 @@ public interface SysProductMapper extends BaseMapper<SysProduct> {
 
     SysProduct getById(@Param("id") long id);
 
+    void add(SysProduct product);
+
     /**
      * 查询所有product
      * @return

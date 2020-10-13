@@ -1,6 +1,7 @@
 org\alex\admin\web\service\impl\SysMenuServiceImpl.class
 org\alex\admin\web\controller\MenuController.class
 org\alex\admin\web\service\impl\SysProductServiceImpl.class
+org\alex\admin\web\util\ExcelUtils.class
 org\alex\admin\web\mapper\SysLogMapper.class
 org\alex\admin\web\service\ISysUserService.class
 org\alex\admin\web\entity\SysSetting.class

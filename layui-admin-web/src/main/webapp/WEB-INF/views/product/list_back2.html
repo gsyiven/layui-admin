@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<#include "/common/header.html">
+</head>
+<body class="childrenBody">
+	<blockquote class="layui-elem-quote news_search">
+		<form class="layui-form form">
+		<div class="layui-inline">
+			<a class="layui-btn modal-iframe"  data-params='{"content": "/product/add", "title": "添加产品","full":false,"area":"600px,480px"}'>新增</a>
+		</div>
+		<div class="layui-inline">
+			<a class="layui-btn layui-btn-danger batchDel ajax-all"  data-name="id" data-params='{"url": "/product/delete","data":"","confirm":"true","complete":"reloadTab"}'>批量删除</a>
+		</div>
+		<div class="layui-inline">
+		    <div class="layui-input-inline">
+<!--		    	<input type="text" value="" name="keyword" placeholder="产品名称" class="layui-input search_input">-->
+				<input type="text" value="" name="productName" id="productName" placeholder="产品名称" class="layui-input search_input">
+		    </div>
+		    <button class="layui-btn" type="button" lay-filter="query" id="query" lay-submit>查找</button>
+<!--			<button type="button" class="layui-btn" data-type="reload" id="query">查找</button>-->
+		</div>
+		</form>
+	</blockquote>
+
+	<table class="layui-table" id="product" lay-filter="product"></table>
+
+<!--	<script type="text/javascript" src="/layui/layui.js"></script>-->
+	<#include "/common/version.html">
+	<script type="text/javascript">
+		//注册组件
+		layui.use(['jquery','jqform', ''dtable'], function () {
+			var $ = layui.jquery,
+					table = layui.dtable,
+					ajax = layui.ajax,
+					laydate = layui.laydate,
+					form = layui.jqform;
+
+            var tableIns = table.render({
+                elem: '#product'
+                , fit: true
+                , url: '/product/queryProduct'
+                , method: 'post' //默认：get请求
+				/**
+				 * layui返回table表数据是有相应格式的
+				 * @param res
+				 * @returns {{code: number, msg: string, count: number, data: *}}
+				 */
+				/*
+				,parseData:function (res) {
+					console.log(res);
+					return{
+						"code":0,
+						"msg":"",
+						"count":1000,
+						data:res
+					}
+				}*/
+				 , cols: [[ //表头
+                          {field: 'id', width: 20, title: 'ID', sort: true}
+                        , {field: 'productName', width: 65, title: '商品名称'}
+                        , {field: 'detectionLocation', width: 65, title: '检测地点'}
+                        , {field: 'detectionDate', width: 65, title: '检测日期'}
+                        , {field: 'detectionResult', width: 65, title: '检测结果'}
+                        , {field: 'firstClass', width: 65, title: '一级目录'}
+                        , {field: 'secondClass', width: 65, title: '二级目录'}
+                        , {field: 'thirdClass', width: 65 title: '三级目录'}
+						, {field: 'fourthClass', width: 65 title: '四级目录'}
+						, {field: 'company', width: 90 title: '受检企业名称'}
+						, {field: 'manufacturer', width: 120 title: '标称生产企业名称'}
+						, {field: 'brand', width: 40 title: '商标'}
+						, {field: 'spec', width: 65 title: '规格型号'}
+						, {field: 'productionDate', width: 100 title: '生产日期/批号'}
+						, {field: 'inspectionAgency', width: 65 title: '承检机构'}
+						, {fixed: 'right', title:'操作', toolbar: '#barDemo' width: 150}
+                    ]]
+                , page: true//开启分页，默认page=1，limit=10
+                id: "partslist" //重载表的时候被引用， table.reload('partslist');
+<!--                , done: function (res, curr, count) {-->
+<!--                    //数据的回调用，可不写-->
+<!--                }-->
+            });
+
+            $('#query').on('click', function(){
+               // debugger
+                tableIns.reload({
+                    page:{
+                        curr:1
+                    },
+                    where:{
+                        productName: $("input[name='productName']").val()
+                    }
+                })
+            });
+
+            //高级查询--监听提交 lay-filter="search"
+			form.on('submit(query)', function (data) {
+				// layer.msg(JSON.stringify(data.field));//表格数据序列化
+				var formData = data.field;
+				console.debug(formData);
+				var productName = formData.productName;
+				if (productName == "") {
+					layer.alert('请输入筛选条件！', {icon: 2, time: 1500});
+					return false;
+				}
+
+				function querySuccess() {
+					layer.msg("查找成功", {icon:6, time:1000}, function(index){
+						layer.close(index);
+						window.location.href = '/';
+					});
+				}
+				function queryError(msg) {
+					layer.msg(msg, {icon:5, time:2000}, function(index){
+						//$("#J_validateCode").attr('src', '/servlet/validateCodeServlet?width=110&height=38&'+Math.random());
+						layer.close(index);
+					});
+				}
+
+				//数据表格重载
+				table.reload('partslist', {
+					page: {
+						curr: 1 //重新从第 1 页开始
+					}
+					, where: {//这里传参  向后台
+						productName: productName
+					}
+					, url: "/product/queryProduct" //后台做模糊搜索接口路径
+					, method: 'post'
+				});
+				$.post(
+					'/product/queryProduct',
+					data.field,
+					function(ret) {
+						if(ret.status==200){
+							querySuccess();
+						}else{
+							 queryError(ret.msg);
+						}
+<!--						$btnLogin.removeClass('layui-btn-disabled').text('立即登录');-->
+					}
+				);
+	    		return false;
+	    	}
+
+			var $ = layui.$, active = {
+                reload: function () {
+                    var productName = $('#productName');
+
+                    //执行重载
+                    table.reload('product', {
+                        page: {
+                            curr: 1 //重新从第 1 页开始
+                        }
+                        , where: {
+                            key: productName.val()
+                        }
+                    }, 'data');
+                }
+            };
+
+            $('.layui-inline .layui-btn').on('click', function () {
+                var type = $(this).data('type');
+                active[type] ? active[type].call(this) : '';
+            });
+        });
+	</script>
+
+</body>
+</html>

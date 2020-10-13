@@ -8,6 +8,7 @@ import org.alex.admin.web.entity.SysMenu;
 
 import com.baomidou.mybatisplus.service.IService;
 import org.alex.admin.web.entity.SysProduct;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * <p>
@@ -43,5 +44,6 @@ public interface ISysProductService extends IService<SysProduct> {
 //     * @return
 //     */
 //    List<String> selectResourceByUid(String uid);
+    String ajaxUploadExcel(MultipartFile file);
 
 }
