@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.alex:layui-admin-core:0.0.1-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://E:/softwares/apache-maven-3.6.3/org/alex/layui-admin-core/0.0.1-SNAPSHOT/layui-admin-core-0.0.1-SNAPSHOT.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://E:/softwares/apache-maven-3.6.3/org/alex/layui-admin-core/0.0.1-SNAPSHOT/layui-admin-core-0.0.1-SNAPSHOT-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://E:/softwares/apache-maven-3.6.3/org/alex/layui-admin-core/0.0.1-SNAPSHOT/layui-admin-core-0.0.1-SNAPSHOT-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

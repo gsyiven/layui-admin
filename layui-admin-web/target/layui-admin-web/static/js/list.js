@@ -11,12 +11,13 @@
 
 var oneList = {} ;
 
-layui.define(['jquery', 'dtable', 'jqdate', 'ajax', 'jqform', 'upload'], function(exports) {
+layui.define(['jquery', 'dtable', 'jqdate', 'ajax', 'jqform', 'upload', 'layer'], function(exports) {
     var $ = layui.jquery,
         list = layui.dtable,
         ajax = layui.ajax,
         laydate = layui.laydate,
-        form = layui.jqform;
+        form = layui.jqform,
+        layer = layui.layer;
 
         oneList = new list();
         oneList.init('list-tpl');
@@ -48,6 +49,18 @@ layui.define(['jquery', 'dtable', 'jqdate', 'ajax', 'jqform', 'upload'], functio
 //            }
 //        }
 //    });
+    function importSuccess() {
+        layer.msg("导入成功", {icon:6, time:1000}, function(index){
+//            layer.close(index);
+//            window.location.href = '/';
+        });
+    }
+    function importError(msg) {
+        layer.msg(msg, {icon:5, time:2000}, function(index){
+            //$("#J_validateCode").attr('src', '/servlet/validateCodeServlet?width=110&height=38&'+Math.random());
+//            layer.close(index);
+        });
+    }
     layui.upload({
         url: '/product/importExcel',
         before: function(input) {
@@ -60,11 +73,12 @@ layui.define(['jquery', 'dtable', 'jqdate', 'ajax', 'jqform', 'upload'], functio
         },
         success: function(res) {
             if (res.status == 200) {
-                box.next('div').find('div.imgbox').html('<img src="' + res.url + '" alt="..." class="img-thumbnail">');
-                box.find('input[type=hidden]').val(res.url);
-                form.check(box.find('input[type=hidden]'));
+                importSuccess();
+//                box.next('div').find('div.imgbox').html('<img src="' + res.url + '" alt="..." class="img-thumbnail">');
+//                box.find('input[type=hidden]').val(res.url);
+//                form.check(box.find('input[type=hidden]'));
             } else {
-                box.next('div').find('p').html('上传失败...')
+                importError(ret.msg);
             }
         }
     });

@@ -5,7 +5,6 @@
 </head>
 <body class="childrenBody">
 	<blockquote class="layui-elem-quote news_search">
-<!--		<form class="layui-form form" action="/product/page" method="get">-->
 		<form class="layui-form form" action="/product/queryProduct" method="get">
 			<div class="layui-inline">
 				<a class="layui-btn modal-iframe"  data-params='{"content": "/product/add", "title": "添加产品","full":false,"area":"600px,480px"}'>新增</a>
@@ -15,9 +14,8 @@
 			</div>
 			<div class="layui-inline">
 				<div class="layui-input-inline">
-					<input type="text" value="" name="productName" id="productName" placeholder="产品名称" class="layui-input search_input">
+					<input type="text" value="" name="productName" id="productName" placeholder="商品名称" class="layui-input search_input">
 				</div>
-	<!--		    <button lay-submit class="layui-btn" lay-filter="search">查找</button>-->
 				<button lay-submit id="reloadBtn" class="layui-btn" lay-filter="search">查找</button>
 			</div>
 			<div class="layui-inline">
@@ -53,27 +51,10 @@
 	</div>
 	<div id="page"></div>
 	
-<!--    <script id="list-tpl" type="text/html" data-params='{"url":"/product/page","pageid":"#page"}'>-->
 	<script id="list-tpl" type="text/html" data-params='{"url":"/product/queryProduct", "productName": "#productName"}'>
 	{{#  layui.each(d, function(index, it){ }}
 	<tr>
 		<td><input type="checkbox" name="id" value="{{ it.id}}" lay-skin="primary" ></td>
-<!--		<td align="left">{{it.id}}</td>-->
-<!--		<td align="left">{{it.productName}}</td>-->
-<!--		<td align="left">{{it.detectionLocation}}</td>-->
-<!--		<td align="left">{{it.detectionDate}}</td>-->
-<!--		<td align="left">{{it.detectionResult}}</td>-->
-<!--		<td align="left">{{it.firstClass}}</td>-->
-<!--		<td align="left">{{it.secondClass}}</td>-->
-<!--		<td align="left">{{it.thirdClass}}</td>-->
-<!--		<td align="left">{{it.fourthClass}}</td>-->
-<!--		<td align="left">{{it.company}}</td>-->
-<!--		<td align="left">{{it.manufacturer}}</td>-->
-<!--		<td align="left">{{it.brand}}</td>-->
-<!--		<td align="left">{{it.spec}}</td>-->
-<!--		<td align="left">{{it.productionDate}}</td>-->
-<!--		<td align="left">{{it.inspectionAgency}}</td>-->
-<!--		<td align="left" width="20">{{it.id}}</td>-->
 		<td align="left" width="65">{{it.productName}}</td>
 		<td align="left" width="65">{{it.detectionLocation}}</td>
 		<td align="left" width="65">{{it.detectionDate}}</td>
@@ -90,7 +71,7 @@
 		<td align="left" width="65">{{it.inspectionAgency}}</td>
 		<td align="left">
 			<a class="layui-btn layui-btn-mini modal-iframe" data-params='{"content": "/product/edit?id={{it.id}}", "title": "编辑","full":false,"area":"600px,480px"}'><i class="iconfont icon-edit"></i> 编辑</a>
-			<a class="layui-btn layui-btn-mini modal-iframe" data-params='{"content": "/product/addItem?id={{it.id}}", "title": "添加商品","full":false,"area":"600px,480px"}'><i class="iconfont icon-edit"></i> 添加</a>
+<!--			<a class="layui-btn layui-btn-mini modal-iframe" data-params='{"content": "/product/addItem?id={{it.id}}", "title": "添加商品","full":false,"area":"600px,480px"}'><i class="iconfont icon-edit"></i> 添加</a>-->
 			<a class="layui-btn layui-btn-danger layui-btn-mini ajax" data-params='{"url": "/product/delete","confirm":true,"data":"id={{it.id}}","complete":"reloadTab"}'><i class="layui-icon">&#xe640;</i> 删除</a>
 		</td>
 	</tr>
@@ -103,25 +84,6 @@
 	<#include "/common/version.html">
 	<script type="text/javascript">
 		layui.use('list');
-<!--		layui.use(['list', 'upload'], function() {-->
-<!--		  var upload = layui.upload;-->
-
-<!--		  //执行实例-->
-<!--		  var uploadInst = upload.render({-->
-<!--		    elem: '#test1' //绑定元素-->
-<!--		    ,url: '/product/importExcel' //上传接口-->
-<!--&lt;!&ndash;		    ,accept: 'file' //普通文件&ndash;&gt;-->
-<!--			,done: function(res){-->
-<!--				var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引-->
-<!--                parent.location.reload();//刷新父页面，注意一定要在关闭当前iframe层之前执行刷新-->
-<!--                parent.layer.close(index); //再执行关闭-->
-<!--			}-->
-<!--		    ,error: function(res){-->
-<!--		      //请求异常回调-->
-<!--		    	alert("服务器错误");-->
-<!--		    }-->
-<!--		  });-->
-<!--		});-->
 	</script>
 </body>
 </html>

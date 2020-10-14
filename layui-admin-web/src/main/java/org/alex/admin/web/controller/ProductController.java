@@ -63,25 +63,24 @@ public class ProductController extends CrudController<SysProduct, ISysProductSer
      */
     @ResponseBody
     @RequestMapping("/queryProduct")
-    public Rest queryProduct(String productName) {
-        Integer page = 1;
-        Integer size = 15;
+    public Rest queryProduct(
+            @RequestParam (required = true,defaultValue="1") Integer page,
+            @RequestParam (defaultValue="15")Integer size, String productName) {
+//        Integer page = 1;
         EntityWrapper<SysProduct> ew = new EntityWrapper<SysProduct>();
-        Page<SysProduct> pageData = sysProductService.selectPage(new Page<SysProduct>(page, size), ew.like("productName", productName));
-        return Rest.okData(pageData);
-
-//        String productName = params.get("productName").toString();
+        Page<SysProduct> products = sysProductService.selectPage(new Page<SysProduct>(page, size), ew.like("productName", productName));
+        return Rest.okData(products);
+//        Page<SysProduct> products = sysProductService.selectPage(new Page<SysProduct>(), ew.like("productName", productName));
+//        List<Object> products = sysProductService.selectObjs(ew.like("productName", productName));
 //        List<SysProduct> products = sysProductService.queryProduct(productName);
-//        return Rest.okData(pageData);
-//        SysProduct products = sysProductService.selectOne(new EntityWrapper<SysProduct>().like("productName",productName));
-//        Page<SysProduct> pageData = new Page<>();
-//        pageData.setRecords(products);
-//        return Rest.okData(pageData);
 //        JSONObject json = new JSONObject();
-//        json.put("code", 0);
-//        json.put("data", products);
-//        return json.toJSONString();
-//        return Json(new { code = 0, count = Count, data = list, msg = "获取数据成功！" });
+//        json.put("total", products.size());
+//        json.put("size", size);
+//        json.put("pages", products.size() / size + 1);
+//        json.put("current", 1);
+//        json.put("records", products);
+//        logger.debug(products);
+//        return Rest.okData(json);
     }
 
     /**
@@ -127,7 +126,7 @@ public class ProductController extends CrudController<SysProduct, ISysProductSer
             // TODO Auto-generated catch block
             e.printStackTrace();
             result.put("status", 500);
-            result.put("status", e.getMessage());
+            result.put("msg", e.getMessage());
             return result;
         }
     }

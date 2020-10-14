@@ -28,8 +28,9 @@ layui.define(['jquery', 'laytpl', 'layer', 'modal', 'ajax', 'laypage', 'form'], 
                 data: '',
                 tplid: "list-tpl",
                 listid: "list",
-                pageid: "", //如果留空则不分页
+                pageid: "page", //如果留空则不分页
                 curr: 1,
+                count: 0,
                 pages: 0, //分页的总页数，通过服务端获取
             };
         };
@@ -140,6 +141,7 @@ layui.define(['jquery', 'laytpl', 'layer', 'modal', 'ajax', 'laypage', 'form'], 
                         return false;
                     }
                     _this.options.pages = ret.data.pages;
+                    _this.options.count = ret.data.total;
 
                     if (_this.options.dataName) {
                         layui.data(_this.options.dataName, {
@@ -154,6 +156,7 @@ layui.define(['jquery', 'laytpl', 'layer', 'modal', 'ajax', 'laypage', 'form'], 
                     if ("" != _this.options.pageid && curr === -1) {
                         _this.page(1);
                     }
+//                    _this.page(1);
                 } else {
                     layer.msg(ret.msg);
                     return;
@@ -386,7 +389,10 @@ layui.define(['jquery', 'laytpl', 'layer', 'modal', 'ajax', 'laypage', 'form'], 
             nowpage = 1;
         }
         laypage({
-            cont: $(_this.options.pageid),
+//            cont: $(_this.options.pageid),
+            cont: _this.options.pageid,
+            count: _this.options.count,
+            limit: 15,
             pages: _this.options.pages,
             first: 1,
             last: _this.options.pages,
